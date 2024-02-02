@@ -71,3 +71,10 @@
   color: green;
   scrollbar-width: none;
 }
+
+.isActive {
+  color: white;
+  background-color: #378760;
+  display: flex;
+  justify-content: space-between;
+}

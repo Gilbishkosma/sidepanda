@@ -1,8 +1,39 @@
+import type { OnArgs } from "react-calendar";
 import { Calendar as Cal } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./calender.css";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  selectDate,
+  setDate,
+} from "../../features/selectedDateTime/dateTimeSlice";
+import { formatDate, getStartEndDates } from "../../utils/dateUtil";
+import { fetchSlotsByDate } from "../../features/timeSlots/timeSlotsSlice";
 
 const Calender = () => {
+  const today = new Date();
+  const dispatch = useAppDispatch();
+  const dateSelected = useAppSelector(selectDate);
+
+  const handleMonthChange = ({ activeStartDate }: OnArgs) => {
+    const { firstDateOfCurrentMonth, firstDateOfNextMonth } = getStartEndDates(
+      new Date(activeStartDate || ""),
+    );
+    dispatch(
+      fetchSlotsByDate({
+        startDate: formatDate(firstDateOfCurrentMonth),
+        endDate: formatDate(firstDateOfNextMonth),
+      }),
+    );
+
+    if (
+      new Date(dateSelected).getMonth() !=
+      new Date(activeStartDate || "").getMonth()
+    ) {
+      dispatch(setDate(activeStartDate?.toLocaleDateString()));
+    }
+  };
+
   return (
     <div className="calenderCard">
       <div style={{ maxWidth: 340, width: "100%" }}>
@@ -15,7 +46,15 @@ const Calender = () => {
         </span>
       </div>
 
-      <Cal className="calRoot" prev2Label={null} next2Label={null} />
+      <Cal
+        className="calRoot"
+        prev2Label={null}
+        next2Label={null}
+        minDate={today}
+        value={dateSelected}
+        onChange={value => dispatch(setDate(value?.toLocaleString()))}
+        onActiveStartDateChange={handleMonthChange}
+      />
     </div>
   );
 };
