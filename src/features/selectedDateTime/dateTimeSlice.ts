@@ -1,4 +1,6 @@
+import moment from "moment";
 import { createAppSlice } from "../../app/createAppSlice";
+import { getCurrentDate } from "../../utils/dateUtil";
 
 interface stateProp {
   dateSelected: string;
@@ -6,7 +8,7 @@ interface stateProp {
 }
 
 const initialState: stateProp = {
-  dateSelected: new Date().toLocaleString(),
+  dateSelected: getCurrentDate(),
   timeSelected: [],
 };
 

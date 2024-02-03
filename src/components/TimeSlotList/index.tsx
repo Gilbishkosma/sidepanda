@@ -12,6 +12,7 @@ import { selectDate } from "../../features/selectedDateTime/dateTimeSlice";
 import { getObjFromList } from "../../utils";
 import Loader from "../icons/loader";
 import "./index.css";
+import moment from "moment";
 
 const TimeSlotList = () => {
   const [duration, setDuration] = useState("30 min");
@@ -20,9 +21,10 @@ const TimeSlotList = () => {
   const [slots, setSlots] = useState([]);
   const status = useAppSelector(selectStatus);
 
-  const currentDate = new Date(selectedDate);
+  const currentDate = moment(selectedDate);
 
   useEffect(() => {
+    // get the time for a particlular date from fetched timeSlots of this month.
     setSlots(getObjFromList(timeSlots)[formatDate(selectedDate)] || []);
   }, [timeSlots, selectedDate]);
 
@@ -30,13 +32,12 @@ const TimeSlotList = () => {
 
   useEffect(() => {
     // get the time slot for this month
-    const { firstDateOfCurrentMonth, firstDateOfNextMonth } = getStartEndDates(
-      new Date(),
-    );
+    const { firstDateOfCurrentMonth, firstDateOfNextMonth } =
+      getStartEndDates(moment());
     dispatch(
       fetchSlotsByDate({
-        startDate: formatDate(firstDateOfCurrentMonth),
-        endDate: formatDate(firstDateOfNextMonth),
+        startDate: firstDateOfCurrentMonth,
+        endDate: firstDateOfNextMonth,
       }),
     );
   }, []);
@@ -56,11 +57,8 @@ const TimeSlotList = () => {
       <hr />
       <div>
         <p style={{ fontWeight: 600, marginBottom: 0, fontSize: 14 }}>
-          {currentDate.toLocaleDateString("en-US", {
-            weekday: "long",
-          })}
-          , {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentDate.getDate()} - Available Slots
+          {currentDate.format("dddd")}, {currentDate.format("MMMM")}{" "}
+          {currentDate.format("D")} - Available Slots
         </p>
         {status === "pending" ? (
           <Loader />

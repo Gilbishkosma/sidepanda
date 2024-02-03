@@ -1,6 +1,8 @@
+import type { Moment } from "moment";
+import moment from "moment";
+
 export const formatDate = (initialDate: string) => {
-  const date = new Date(initialDate);
-  return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
+  return moment(initialDate).format("YYYY-MM-DD");
 };
 
 export const formatTime = (time: string) => {
@@ -8,18 +10,21 @@ export const formatTime = (time: string) => {
   return date.getHours() + ":" + date.getMinutes();
 };
 
-export const getStartEndDates = (date: Date) => {
-  var firstDateOfCurrentMonth = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    1,
-  ).toLocaleDateString();
+export const getStartEndDates = (date: Moment) => {
+  var firstDateOfCurrentMonth = date.startOf("month").format("YYYY-MM-DD");
 
   // Get the first date of the next month
-  var firstDateOfNextMonth = new Date(
-    date.getFullYear(),
-    date.getMonth() + 1,
-    1,
-  ).toLocaleDateString();
+  var firstDateOfNextMonth = date
+    .endOf("month")
+    .add(1, "day")
+    .format("YYYY-MM-DD");
   return { firstDateOfCurrentMonth, firstDateOfNextMonth };
+};
+
+export const getCurrentDate = () => {
+  return moment().format("L").toString();
+};
+
+export const getFormattedDate = (date: Date | string | null | undefined) => {
+  return moment(date).format("L").toString();
 };

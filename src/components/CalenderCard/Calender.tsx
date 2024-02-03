@@ -7,36 +7,40 @@ import {
   selectDate,
   setDate,
 } from "../../features/selectedDateTime/dateTimeSlice";
-import { formatDate, getStartEndDates } from "../../utils/dateUtil";
+import {
+  getCurrentDate,
+  getFormattedDate,
+  getStartEndDates,
+} from "../../utils/dateUtil";
 import { fetchSlotsByDate } from "../../features/timeSlots/timeSlotsSlice";
+import moment from "moment";
 
 const Calender = () => {
   const today = new Date();
   const dispatch = useAppDispatch();
-  const dateSelected = useAppSelector(selectDate);
+  const selectedDate = useAppSelector(selectDate);
+
+  console.log(selectedDate);
 
   const handleMonthChange = ({ activeStartDate }: OnArgs) => {
+    const activeDate = moment(activeStartDate);
     // call api again on month change and set the 1st of that month as selected
-    const { firstDateOfCurrentMonth, firstDateOfNextMonth } = getStartEndDates(
-      new Date(activeStartDate || ""),
-    );
+    const { firstDateOfCurrentMonth, firstDateOfNextMonth } =
+      getStartEndDates(activeDate);
     dispatch(
       fetchSlotsByDate({
-        startDate: formatDate(firstDateOfCurrentMonth),
-        endDate: formatDate(firstDateOfNextMonth),
+        startDate: firstDateOfCurrentMonth,
+        endDate: firstDateOfNextMonth,
       }),
     );
 
-    if (
-      new Date(dateSelected).getMonth() !==
-      new Date(activeStartDate || "").getMonth()
-    ) {
-      if (
-        new Date(activeStartDate || "").getMonth() === new Date().getMonth()
-      ) {
-        dispatch(setDate(new Date().toLocaleDateString()));
+    if (!moment(selectedDate).isSame(activeDate, "month")) {
+      // check if the selected date is of last month or not, if its of last month then select 1st of this month
+      if (activeDate.isSame(moment(), "month")) {
+        // to check if the dates are disabled for previous month, then set the current date for it.
+        dispatch(setDate(getCurrentDate()));
       } else {
-        dispatch(setDate(activeStartDate?.toLocaleDateString()));
+        dispatch(setDate(getFormattedDate(activeStartDate)));
       }
     }
   };
@@ -58,8 +62,10 @@ const Calender = () => {
         prev2Label={null}
         next2Label={null}
         minDate={today}
-        value={dateSelected}
-        onChange={value => dispatch(setDate(value?.toLocaleString()))}
+        value={selectedDate}
+        onChange={value =>
+          dispatch(setDate(getFormattedDate(value?.toString())))
+        }
         onActiveStartDateChange={handleMonthChange}
       />
     </div>
