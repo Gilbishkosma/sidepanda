@@ -1,0 +1,9 @@
+.variant {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fafafc;
+  border-color: #c7c9d9;
+  color: #378760;
+  font-weight: 700;
+}

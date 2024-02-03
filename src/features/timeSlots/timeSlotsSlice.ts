@@ -37,9 +37,14 @@ export const timeSlotSlice = createAppSlice({
   },
   extraReducers: builder => {
     builder.addCase(fetchSlotsByDate.fulfilled, (state, action) => {
-      console.log("here");
-      console.log(action.payload);
+      state.status = "idle";
       state.data = action.payload;
+    });
+    builder.addCase(fetchSlotsByDate.pending, state => {
+      state.status = "pending";
+    });
+    builder.addCase(fetchSlotsByDate.rejected, state => {
+      state.status = "failed";
     });
   },
 });

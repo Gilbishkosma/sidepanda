@@ -6,18 +6,21 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   fetchSlotsByDate,
   selectData,
+  selectStatus,
 } from "../../features/timeSlots/timeSlotsSlice";
 import { selectDate } from "../../features/selectedDateTime/dateTimeSlice";
 import { getObjFromList } from "../../utils";
+import Loader from "../icons/loader";
 
 const TimeSelect = () => {
-  const [duration, setDuration] = useState(30);
+  const [duration, setDuration] = useState("30 min");
   const timeSlots = useAppSelector(selectData);
   const selectedDate = useAppSelector(selectDate);
   const [slots, setSlots] = useState([]);
+  const status = useAppSelector(selectStatus);
 
   useEffect(() => {
-    setSlots(getObjFromList(timeSlots)[formatDate(selectedDate)]);
+    setSlots(getObjFromList(timeSlots)[formatDate(selectedDate)] || []);
   }, [timeSlots, selectedDate]);
 
   useEffect(() => {}, [selectedDate]);
@@ -37,25 +40,37 @@ const TimeSelect = () => {
     );
   }, []);
 
-  const handleDuration = (value: number) => {
+  const handleDuration = (value: string) => {
     setDuration(value);
   };
 
   return (
     <div className="timeCard">
       <Select
-        title="SELECT FROM VARIANTS"
+        title="Select from variants"
         value={duration}
-        options={[30, 60]}
+        options={["30 min", "60 min"]}
         handleChange={handleDuration}
       />
+      <hr />
       <div>
-        <p>Thursday Dec 2 - Available Slots</p>
-        <div className="timeRoot">
-          {slots?.map((item: any, index: number) => (
-            <TimeSlot time={item} key={index} />
-          ))}
-        </div>
+        <p style={{ fontWeight: 600, marginBottom: 0, fontSize: 14 }}>
+          {new Date(selectedDate).toLocaleDateString("en-US", {
+            weekday: "long",
+          })}
+          ,{" "}
+          {new Date(selectedDate).toLocaleString("default", { month: "long" })}{" "}
+          {new Date(selectedDate).getDate()} - Available Slots
+        </p>
+        {status === "pending" ? (
+          <Loader />
+        ) : (
+          <div className="timeRoot">
+            {slots?.map((item: any, index: number) => (
+              <TimeSlot time={item} key={index} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

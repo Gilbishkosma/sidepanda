@@ -1,6 +1,6 @@
 .content,
 .footer {
-  max-width: 1200px;
+  max-width: 1000px;
   width: 100%;
 }
 
@@ -9,6 +9,7 @@
   background-color: #ebebf0;
   justify-content: space-between;
   box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 20px 0px 0px;
 }
 
 .root {
@@ -16,7 +17,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 80%;
+  margin: 10px;
 }
 
 .calenderCard {
@@ -24,6 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
   padding-bottom: 40px;
 }
 
@@ -57,6 +60,7 @@
   text-align: center;
   border: 1px solid green;
   border-radius: 10px;
+  font-weight: 500;
 }
 
 .timeBox:hover {
@@ -70,6 +74,8 @@
   overflow: auto;
   color: green;
   scrollbar-width: none;
+  transition: all;
+  animation-timing-function: ease-in-out;
 }
 
 .isActive {
@@ -77,4 +83,52 @@
   background-color: #378760;
   display: flex;
   justify-content: space-between;
+}
+
+.btn {
+  padding: 15px 40px 15px 30px;
+  border-radius: 10px;
+  border: 0px;
+  cursor: pointer;
+  color: #555770;
+  font-weight: 700;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+}
+
+.btn:active {
+  transform: translateY(-2px);
+}
+
+.link {
+  color: white;
+}
+
+hr {
+  border: 1px solid #c7c9d9;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .root {
+    height: 100%;
+    margin: 30px 10px;
+    display: block;
+  }
+
+  .footer {
+    padding: 10px 15px;
+    margin-bottom: 50px;
+  }
+
+  .timeCard {
+    padding: 20px 20px;
+  }
 }

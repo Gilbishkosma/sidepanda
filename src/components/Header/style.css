@@ -10,6 +10,47 @@
 
 .links {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
+}
+
+.links p {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.links p:active {
+  transform: translateY(-2px);
+}
+
+.navBtn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: #378760;
+  font-weight: 500;
+  background-color: white;
+  border-color: #378760;
+  border: 1px solid;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navBtn:active {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+  .header img {
+    max-width: 150px;
+  }
+
+  .links p {
+    display: none;
+  }
+
+  .navBtn {
+    font-size: 12px;
+  }
 }

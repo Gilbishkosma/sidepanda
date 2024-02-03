@@ -18,3 +18,17 @@ body {
   background-color: #f9fafbb2;
   color: #28293d;
 }
+
+body,
+html,
+#root {
+  height: 100%;
+}
+
+@media (max-width: 700px) {
+  body,
+  html,
+  #root {
+    height: auto;
+  }
+}

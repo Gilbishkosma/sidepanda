@@ -30,7 +30,13 @@ const Calender = () => {
       new Date(dateSelected).getMonth() !=
       new Date(activeStartDate || "").getMonth()
     ) {
-      dispatch(setDate(activeStartDate?.toLocaleDateString()));
+      if (
+        new Date(activeStartDate || "").getMonth() === new Date().getMonth()
+      ) {
+        dispatch(setDate(new Date().toLocaleDateString()));
+      } else {
+        dispatch(setDate(activeStartDate?.toLocaleDateString()));
+      }
     }
   };
 
