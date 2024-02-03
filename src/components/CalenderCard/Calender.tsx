@@ -20,8 +20,6 @@ const Calender = () => {
   const dispatch = useAppDispatch();
   const selectedDate = useAppSelector(selectDate);
 
-  console.log(selectedDate);
-
   const handleMonthChange = ({ activeStartDate }: OnArgs) => {
     const activeDate = moment(activeStartDate);
     // call api again on month change and set the 1st of that month as selected
