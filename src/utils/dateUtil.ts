@@ -3,6 +3,11 @@ export const formatDate = (initialDate: string) => {
   return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
 };
 
+export const formatTime = (time: string) => {
+  const date = new Date(time);
+  return date.getHours() + ":" + date.getMinutes();
+};
+
 export const getStartEndDates = (date: Date) => {
   var firstDateOfCurrentMonth = new Date(
     date.getFullYear(),

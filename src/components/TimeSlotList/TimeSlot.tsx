@@ -4,6 +4,7 @@ import {
   setTime,
 } from "../../features/selectedDateTime/dateTimeSlice";
 import { CheckIcon } from "../icons";
+import { formatTime } from "../../utils/dateUtil";
 
 interface TimeProp {
   time: {
@@ -12,13 +13,9 @@ interface TimeProp {
   };
 }
 
-const formatTime = (date: Date) => {
-  return date.getHours() + ":" + date.getMinutes();
-};
-
 const TimeSlot = ({ time }: TimeProp) => {
-  const startTime = new Date(time.start_time);
-  const endTime = new Date(time.end_time);
+  const startTime = formatTime(time.start_time);
+  const endTime = formatTime(time.end_time);
   const dispatch = useAppDispatch();
   const selectedTime = useAppSelector(selectTimeSelected);
 
@@ -31,8 +28,7 @@ const TimeSlot = ({ time }: TimeProp) => {
         className={`timeBox ${isSelected ? "isActive" : ""} `}
         onClick={() => dispatch(setTime({ ...time }))}
       >
-        {formatTime(startTime)} - {formatTime(endTime)}{" "}
-        {isSelected && <CheckIcon />}
+        {startTime} - {endTime} {isSelected && <CheckIcon />}
       </p>
     </>
   );

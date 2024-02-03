@@ -1,6 +1,6 @@
 import CalenderFooter from "../CalenderFooter";
+import TimeSlotList from "../TimeSlotList";
 import Calender from "./Calender";
-import TimeSelect from "./TimeSelect";
 import "./index.css";
 
 const CalenderCard = () => {
@@ -8,7 +8,7 @@ const CalenderCard = () => {
     <div className="root">
       <div className="content">
         <Calender />
-        <TimeSelect />
+        <TimeSlotList />
       </div>
       <CalenderFooter />
     </div>

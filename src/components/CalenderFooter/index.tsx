@@ -3,7 +3,9 @@ import {
   selectDate,
   selectTimeSelected,
 } from "../../features/selectedDateTime/dateTimeSlice";
+import { formatDate, formatTime } from "../../utils/dateUtil";
 import { RightArrow } from "../icons";
+import "./index.css";
 
 const CalenderFooter = () => {
   const selectedTime = useAppSelector(selectTimeSelected);
@@ -11,7 +13,7 @@ const CalenderFooter = () => {
 
   const handleFormSubmission = () => {
     alert(
-      `Your appointment has been scheduled. Date: ${new Date(selectedDate).toLocaleString()} . Time: ${selectedTime[0]} - ${selectedTime[1]} `,
+      `Your appointment has been scheduled. \nDate: ${formatDate(selectedDate)} \nTime: ${formatTime(selectedTime[0])} - ${formatTime(selectedTime[1])} `,
     );
   };
 

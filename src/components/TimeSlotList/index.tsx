@@ -11,19 +11,20 @@ import {
 import { selectDate } from "../../features/selectedDateTime/dateTimeSlice";
 import { getObjFromList } from "../../utils";
 import Loader from "../icons/loader";
+import "./index.css";
 
-const TimeSelect = () => {
+const TimeSlotList = () => {
   const [duration, setDuration] = useState("30 min");
   const timeSlots = useAppSelector(selectData);
   const selectedDate = useAppSelector(selectDate);
   const [slots, setSlots] = useState([]);
   const status = useAppSelector(selectStatus);
 
+  const currentDate = new Date(selectedDate);
+
   useEffect(() => {
     setSlots(getObjFromList(timeSlots)[formatDate(selectedDate)] || []);
   }, [timeSlots, selectedDate]);
-
-  useEffect(() => {}, [selectedDate]);
 
   const dispatch = useAppDispatch();
 
@@ -55,12 +56,11 @@ const TimeSelect = () => {
       <hr />
       <div>
         <p style={{ fontWeight: 600, marginBottom: 0, fontSize: 14 }}>
-          {new Date(selectedDate).toLocaleDateString("en-US", {
+          {currentDate.toLocaleDateString("en-US", {
             weekday: "long",
           })}
-          ,{" "}
-          {new Date(selectedDate).toLocaleString("default", { month: "long" })}{" "}
-          {new Date(selectedDate).getDate()} - Available Slots
+          , {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentDate.getDate()} - Available Slots
         </p>
         {status === "pending" ? (
           <Loader />
@@ -76,4 +76,4 @@ const TimeSelect = () => {
   );
 };
 
-export default TimeSelect;
+export default TimeSlotList;

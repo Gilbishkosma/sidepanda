@@ -16,6 +16,7 @@ const Calender = () => {
   const dateSelected = useAppSelector(selectDate);
 
   const handleMonthChange = ({ activeStartDate }: OnArgs) => {
+    // call api again on month change and set the 1st of that month as selected
     const { firstDateOfCurrentMonth, firstDateOfNextMonth } = getStartEndDates(
       new Date(activeStartDate || ""),
     );
@@ -27,7 +28,7 @@ const Calender = () => {
     );
 
     if (
-      new Date(dateSelected).getMonth() !=
+      new Date(dateSelected).getMonth() !==
       new Date(activeStartDate || "").getMonth()
     ) {
       if (

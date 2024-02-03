@@ -1,0 +1,46 @@
+.timeBox {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid green;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.timeBox:hover {
+  background-color: #378760;
+  cursor: pointer;
+  color: white;
+}
+
+.isActive {
+  color: white;
+  background-color: #378760;
+  display: flex;
+  justify-content: space-between;
+}
+
+.timeCard {
+  flex: 0.5;
+  background-color: white;
+  padding: 20px 40px;
+}
+
+.timeRoot {
+  max-height: 260px;
+  overflow: auto;
+  color: green;
+  scrollbar-width: none;
+  transition: all;
+  animation-timing-function: ease-in-out;
+}
+
+hr {
+  border: 1px solid #c7c9d9;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .timeCard {
+    padding: 20px 20px;
+  }
+}

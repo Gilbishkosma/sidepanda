@@ -3,6 +3,23 @@
   color: #378760;
 }
 
+.calenderCard {
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  padding-bottom: 40px;
+}
+
+.mb0 {
+  margin-bottom: 0px;
+}
+
+.mt0 {
+  margin-top: 0px;
+}
+
 abbr {
   text-decoration: none;
 }
