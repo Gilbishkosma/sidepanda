@@ -1,6 +1,4 @@
-# starter used
-
-[vite-template-redux](https://redux-toolkit.js.org/introduction/getting-started)
+starter used [vite-template-redux](https://redux-toolkit.js.org/introduction/getting-started)
 
 ```sh
 npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
@@ -18,8 +16,11 @@ npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
 ### File Structure
 
 Redux Store : /src/app
+
 Components: /src/components
+
 Redux Slice: /src/features
+
 Utils: /src/utils
 
 ### Components
@@ -34,3 +35,7 @@ CalenderCard component uses Calender, TimeSlotList, CalenderFooter, Form and ico
 ## Calender Library
 
 I have used [react-calender](https://www.npmjs.com/package/react-calendar) for the Calender component
+
+## Date Library
+
+I have used  [momentjs](https://momentjs.com/) for Date. I used normal Date() method but it was giving inconsistent output on different devices.
